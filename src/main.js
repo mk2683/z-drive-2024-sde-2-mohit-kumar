@@ -1,5 +1,6 @@
 const URL = "https://restcountries.com/v3.1/all";
 const ROWPERPAGE = 5;
+const BTNSPERPAGE = 5;
 // console.log("Hi");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -95,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         th.classList.add("sortable");
 
         th.addEventListener("click", () => {
+          console.log("Sort");
           sortTable(data, col.key);
         });
       }
@@ -107,8 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function sortTable(data, key) {
     const sortedData = data.sort((a, b) => {
-      if (a[key] > b[key]) return 1;
-      if (a[key] < b[key]) return -1;
+      const valA = getKeyValue(a, key);
+      const valB = getKeyValue(b, key);
+      if (valA > valB) return 1;
+      if (valA < valB) return -1;
 
       return 0;
     });
@@ -122,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btnFragments = document.createDocumentFragment();
 
-    for (let i = 0; i < totalPages; i++) {
+    for (let i = 1; i < totalPages; i++) {
       const btn = document.createElement("button");
       btn.textContent = i;
 
